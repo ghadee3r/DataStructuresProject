@@ -70,10 +70,6 @@ public class Document {
 
             while (scan.hasNextLine()) {
                 String line = scan.nextLine();
-                if(line.trim().length()<3){
-                    System.out.println("Empty Line");
-                    break;
-                }
                 String id = line.substring(0, line.indexOf(',')).trim();
                 int docId = Integer.parseInt(id);
                 String docContent = line.substring(line.indexOf(',') + 1).trim();

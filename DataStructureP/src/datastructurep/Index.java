@@ -20,4 +20,15 @@ public class Index {
         documents.insert(doc);
             }//end addDocument 
     
+    public Document returnDocument (int docId){
+        documents.findFirst();
+        while(documents.retrieve()!=null){
+            Document doc = (Document)documents.retrieve();
+            if(doc.docuID==docId){
+                return doc;     }
+            documents.findNext();
+            }
+        return null;
+             }//end returnDocument
+    
 }//end Index
