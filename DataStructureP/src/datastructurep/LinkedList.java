@@ -40,8 +40,27 @@ public class LinkedList<T> {
         current.data=d;
     }
     
-    public T retrieve(){
+    public T retrieve() {
+        if (current == null) {
+            return null;  // Handle case where current is null
+        }
         return current.data;
+    }
+ 
+    public String displayWordsInline() {
+        if (isEmpty()) {
+            return "empty";
+        }
+
+        Node<T> p = Head;
+        String wordsLine = ""; // Using a simple string for concatenation
+        
+        while (p != null) {
+            wordsLine += p.data + " "; // Concatenating each word with a space
+            p = p.next;
+        }
+        
+        return wordsLine.trim(); // Remove trailing space
     }
   public void insert(T d) {
         Node <T> p=new Node<T>(d);
