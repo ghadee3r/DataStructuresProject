@@ -15,8 +15,8 @@ public class Index {
     public Index() {
     documents = new LinkedList();        }
     
-    public void addDocument (int docId , String docContent) {
-        Document doc = new Document(docId,docContent);
+    public void addDocument (int docId , LinkedList<String> Words) {
+        Document doc = new Document(docId,Words);
         documents.insert(doc);
             }//end addDocument 
     
