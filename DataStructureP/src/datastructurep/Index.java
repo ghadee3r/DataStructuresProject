@@ -31,4 +31,27 @@ public class Index {
         return null;
              }//end returnDocument
     
+    public void displayDocs(){
+        if (documents.isEmpty()){
+            System.out.println("empty documents");
+        return; }
+        
+        documents.findFirst();
+        while(!documents.last()){
+            
+            Document doc= (Document) documents.retrieve();
+            System.out.println("ID:"+ doc.docuID);
+            doc.Words.displayWordsInline();
+            documents.findNext();
+            
+        }
+        Document doc= (Document) documents.retrieve();
+            System.out.println("ID:"+ doc.docuID);
+            doc.Words.displayWordsInline();
+    }
+    
+    
+    
+
+
 }//end Index
