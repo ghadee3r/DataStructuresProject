@@ -49,18 +49,46 @@ public class InvertedIndex {
     
        public static void main(String[] args) {
         InvertedIndex invertedIndex = new InvertedIndex();
-
- 
-      
-      
-        invertedIndex.addWord(1, "flag");
-
-       
-        invertedIndex.addWord(2, "green");
-        
-      
-        invertedIndex.addWord(3, "flag");
-
+        invertedIndex.addWord(1,"flag");
+        invertedIndex.addWord(2,"green");
+        invertedIndex.addWord(3,"flag");
         // Display inverted index
-        invertedIndex.displayInvertedIndex();}
-}
+        invertedIndex.displayInvertedIndex();
+                    }
+       
+       
+}// end class InvertedIndex
+
+
+
+class Word {
+    String word;
+    datastructurep.LinkedList<Integer>doc_Ids;
+
+    public Word(String w){
+        word=w;
+        doc_Ids=new datastructurep.LinkedList<Integer>();   
+                }
+    
+    public void addID(int id){
+        if(!existIN_docIDs(id))
+            doc_Ids.insert(id);
+            }
+    public boolean existIN_docIDs(Integer id){
+        if (doc_Ids.isEmpty())
+            return false;
+    
+        doc_Ids.findFirst();
+        while(!doc_Ids.last()){
+            if(doc_Ids.retrieve().equals(id)){
+                return true;
+                }
+            doc_Ids.findNext();
+               }
+           if(doc_Ids.retrieve().equals(id)){  //for last obj
+               return true;
+           }
+        return false;
+                }
+    
+        }//end class Word
