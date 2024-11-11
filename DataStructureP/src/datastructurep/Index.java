@@ -15,21 +15,10 @@ public class Index {
     public Index() {
     documents = new LinkedList();        }
     
-    public void addDocument (int docId , LinkedList<String> Words) {
-        Document doc = new Document(docId,Words);
+    public void addDocument (Document doc ) {
         documents.insert(doc);
             }//end addDocument 
     
-    public Document returnDocument (int docId){
-        documents.findFirst();
-        while(documents.retrieve()!=null){
-            Document doc = (Document)documents.retrieve();
-            if(doc.docuID==docId){
-                return doc;     }
-            documents.findNext();
-            }
-        return null;
-             }//end returnDocument
     
     public void displayDocs(){
         if (documents.isEmpty()){
@@ -63,10 +52,8 @@ words2.insert ("green");
 words2.insert ("color");
 Document d2=new Document (2, words2);
 
-ind1.addDocument (d1.docuID, d1.Words);
-
-ind1.addDocument (d2.docuID, d2.Words);
-
+ind1.addDocument (d1);
+ind1.addDocument (d2);
 ind1.displayDocs();
     
     }
