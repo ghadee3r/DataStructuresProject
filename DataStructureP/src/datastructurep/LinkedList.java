@@ -46,22 +46,23 @@ public class LinkedList<T> {
         }
         return current.data;
     }
- 
-    public String displayWordsInline() {
-        if (isEmpty()) {
-            return "empty";
-        }
-
-        Node<T> p = Head;
-        String wordsLine = ""; // Using a simple string for concatenation
-        
-        while (p != null) {
-            wordsLine += p.data + " "; // Concatenating each word with a space
-            p = p.next;
-        }
-        
-        return wordsLine.trim(); // Remove trailing space
+ public void displayWordsInline() {
+    if (Head == null) {
+        System.out.println("empty");
+        return;
     }
+    
+    Node<T> p = Head;
+    StringBuilder line = new StringBuilder();
+
+    while (p != null) {
+        line.append(p.data).append(" ");
+        p = p.next;
+    }
+    
+    System.out.println(line.toString().trim());  // Print all words in a single line
+}
+
   public void insert(T d) {
         Node <T> p=new Node<T>(d);
         

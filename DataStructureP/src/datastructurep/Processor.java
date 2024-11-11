@@ -111,7 +111,7 @@ public LinkedList<String> WordsLLMethod (String content, int id){
       Processor p = new Processor();
       p.LoadF("stop.txt", "dataset.csv");
               p.index.displayDocs();
-              System.out.println("-\n----------------\n");
+              System.out.println("\n----------------\n");
               p.invertedind.displayInvertedIndex();
         
     }

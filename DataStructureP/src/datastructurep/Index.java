@@ -30,13 +30,13 @@ public class Index {
             
             Document doc= (Document) documents.retrieve();
             System.out.println("ID:"+ doc.docuID);
-            doc.Words.display();
+            doc.Words.displayWordsInline();
             documents.findNext();
             
         }
         Document doc= (Document) documents.retrieve();
             System.out.println("ID:"+ doc.docuID);
-            doc.Words.display();
+            doc.Words.displayWordsInline();
     }
     
     public static void main (String[]args){

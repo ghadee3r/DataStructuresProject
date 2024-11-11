@@ -42,7 +42,9 @@ public class InvertedIndex {
     public void displayInvertedIndex() {
         for (Word word : wordsList) {
             System.out.print(word.word + ": ");
+             
             word.doc_Ids.display();
+                           
         }
     }
 
