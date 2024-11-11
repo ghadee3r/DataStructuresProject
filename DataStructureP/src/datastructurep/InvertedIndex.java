@@ -18,15 +18,15 @@ public class InvertedIndex {
     }
 
     // Adds a document's words to the inverted index
-    public void addWord(int docId, LinkedList<String> words) {
-        for (String word : words) { 
-            Word w = getWordEntry(word); //اشيك لو الورد موجودة في اللست الاصلية او لا
+    public void addWord(int docId, String WORD) {
+          
+            Word w = getWordEntry(WORD); //اشيك لو الورد موجودة في اللست الاصلية او لا
             if (w == null) { //لو رجع لي نل يعني مو موجودة و اضيف اوبجكت ورد جديد
-                w = new Word(word);
+                w = new Word(WORD);
                 wordsList.add(w);
             }
             w.addID(docId); //لو موجوده من قبل اضيف بس الايدي
-        }
+        
     }
 
     // Retrieves the Word object for a specific term, or returns null if it doesn't exist
@@ -50,21 +50,16 @@ public class InvertedIndex {
        public static void main(String[] args) {
         InvertedIndex invertedIndex = new InvertedIndex();
 
-        // Example usage
-        LinkedList<String> words1 = new LinkedList<>();
-        words1.add("national");
-        words1.add("flag");
-        invertedIndex.addWord(1, words1);
+ 
+      
+      
+        invertedIndex.addWord(1, "flag");
 
-        LinkedList<String> words2 = new LinkedList<>();
-        words2.add("green");
-        words2.add("color");
-        invertedIndex.addWord(2, words2);
+       
+        invertedIndex.addWord(2, "green");
         
-         LinkedList<String> words3 = new LinkedList<>();
-        words3.add("national");
-        words3.add("flag");
-        invertedIndex.addWord(3, words3);
+      
+        invertedIndex.addWord(3, "flag");
 
         // Display inverted index
         invertedIndex.displayInvertedIndex();}
