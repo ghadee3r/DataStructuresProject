@@ -16,6 +16,7 @@ public class Processor {
 LinkedList <String> stopW;
 Index index;
 InvertedIndex invertedind;
+InvertedIndexBST invertedindBST;
 
 public Processor()
 {
