@@ -9,6 +9,13 @@ package datastructurep;
  * @author lamee
  */
 public class InvertedIndexBST {
+    
 BST<WordEntry> invertedList;
 
+public InvertedIndexBST(){
+    invertedList=new BST<WordEntry>();
 }
+
+
+
+}// end InvertedIndexBST
