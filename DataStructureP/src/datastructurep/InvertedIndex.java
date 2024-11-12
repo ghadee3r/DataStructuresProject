@@ -10,57 +10,93 @@ package datastructurep;
  */
 
 public class InvertedIndex {
-    private datastructurep.LinkedList<Word> invertedList;
+    private datastructurep.LinkedList<String> words;      
+    private datastructurep.LinkedList<datastructurep.LinkedList<Integer>> docIdsList;
 
     public InvertedIndex() {
-        invertedList = new datastructurep.LinkedList<Word>();
+    words = new datastructurep.LinkedList<String>();
+    docIdsList = new datastructurep.LinkedList<datastructurep.LinkedList<Integer>>();
     }
 
+    
+    
+     public void addID(int id , datastructurep.LinkedList<Integer> docIds){
+        if(!existIN_docIDs(id,docIds))
+            docIds.insert(id);
+            }
+    
+        public boolean existIN_docIDs(int id,datastructurep.LinkedList<Integer> docIds){
+        if (docIds.isEmpty())
+            return false;
+    
+        docIds.findFirst();
+        while(!docIds.last()){
+            if(docIds.retrieve().equals(id)){
+                return true;
+                }
+            docIds.findNext();
+               }
+           if(docIds.retrieve().equals(id)){  //for last obj
+               return true;
+           }
+        return false;
+                }
+        
+        
+        
+        
+        
     // Adds a document's words to the inverted index
     public void addWord(int docId, String WORD) {
             if (!indexWordEntry(WORD)){
-                Word w = new Word(WORD); 
-                w.doc_Ids.insert(docId);
-                invertedList.insert(w);
+            datastructurep.LinkedList<Integer> newDocIds = new datastructurep.LinkedList<>();
+            newDocIds.insert(docId);
+            words.insert(WORD);
+            docIdsList.insert(newDocIds);
             }
             else {
-                Word exist = invertedList.retrieve();
-                exist.addID(docId);
-                }
+                datastructurep.LinkedList<Integer> exist = docIdsList.retrieve();
+                    addID(docId,exist);                }
+    }
+    
+  
         
+        
+    private boolean indexWordEntry(String word) {
+        if (words.isEmpty()) return false;
+        
+        words.findFirst();
+        
+        while (!words.last()) {
+            if (words.retrieve().equals(word)) return true;
+            words.findNext();
+        }
+        
+        //for last node
+        return words.retrieve().equals(word);
     }
 
-    private boolean indexWordEntry(String term) {
-       if(invertedList==null||invertedList.isEmpty())
-           return false;
-       invertedList.findFirst();
-       while(!invertedList.last()){
-           if(invertedList.retrieve().equals(term))
-               return true;
-           invertedList.findNext();    
-       }
-       //for last node
-       if(invertedList.retrieve().equals(term))
-            return true;
-       return false;
+public void displayInvertedIndex() {
+        words.findFirst();
+        docIdsList.findFirst();
+
+        while (!words.last()) {
+            String word = words.retrieve();
+            System.out.print("\nWord: " + word + " [ ");
+            datastructurep.LinkedList<Integer> docIds = docIdsList.retrieve();
+            docIds.display();
+            System.out.print(" ]");
+            words.findNext();
+            docIdsList.findNext();
+        }
+        
+        //for last node
+        String word = words.retrieve();
+        System.out.print("\nWord: " + word + " [ ");
+        datastructurep.LinkedList<Integer> docIds = docIdsList.retrieve();
+        docIds.display();
+        System.out.print(" ]");
     }
-
-     void displayInvertedIndex() {
-         invertedList.findFirst();
-         while(!invertedList.last()){
-             Word W = invertedList.retrieve();
-             System.out.print("\nWord: "+W.word + "[ ");
-             W.doc_Ids.display();
-             System.out.print("]");
-             invertedList.findNext();
-         }
-         //for last node
-         Word W = invertedList.retrieve();
-         System.out.print("\nWord: "+W.word + "[ ");
-         W.doc_Ids.display();
-         System.out.print("]");
-
-     }
           
        public static void main(String[] args) {
         InvertedIndex invertedIndex = new InvertedIndex();
@@ -76,35 +112,3 @@ public class InvertedIndex {
 }// end class InvertedIndex
 
 
-
-class Word {
-    String word;
-    datastructurep.LinkedList<Integer>doc_Ids;
-
-    public Word(String w){
-        word=w;
-        doc_Ids=new datastructurep.LinkedList<Integer>();   
-                }
-    
-    public void addID(int id){
-        if(!existIN_docIDs(id))
-            doc_Ids.insert(id);
-            }
-    public boolean existIN_docIDs(Integer id){
-        if (doc_Ids.isEmpty())
-            return false;
-    
-        doc_Ids.findFirst();
-        while(!doc_Ids.last()){
-            if(doc_Ids.retrieve().equals(id)){
-                return true;
-                }
-            doc_Ids.findNext();
-               }
-           if(doc_Ids.retrieve().equals(id)){  //for last obj
-               return true;
-           }
-        return false;
-                }
-    
-        }//end class Word
