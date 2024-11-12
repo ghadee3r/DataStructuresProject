@@ -106,7 +106,7 @@ public class LinkedList<T> {
         Node<T>p=Head;
         while(p!=null)
         {
-            System.out.println(p.data+" ");
+            System.out.print(p.data+" ");
             p=p.next;
         }
     }
