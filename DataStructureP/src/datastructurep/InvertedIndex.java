@@ -10,93 +10,60 @@ package datastructurep;
  */
 
 public class InvertedIndex {
-    private datastructurep.LinkedList<String> words;      
-    private datastructurep.LinkedList<datastructurep.LinkedList<Integer>> docIdsList;
+    private datastructurep.LinkedList<WordEntry> invertedList;
 
     public InvertedIndex() {
-    words = new datastructurep.LinkedList<String>();
-    docIdsList = new datastructurep.LinkedList<datastructurep.LinkedList<Integer>>();
+    invertedList = new datastructurep.LinkedList<>();
     }
 
     
-    
-     public void addID(int id , datastructurep.LinkedList<Integer> docIds){
-        if(!existIN_docIDs(id,docIds))
-            docIds.insert(id);
-            }
-    
-        public boolean existIN_docIDs(int id,datastructurep.LinkedList<Integer> docIds){
-        if (docIds.isEmpty())
-            return false;
-    
-        docIds.findFirst();
-        while(!docIds.last()){
-            if(docIds.retrieve().equals(id)){
-                return true;
-                }
-            docIds.findNext();
-               }
-           if(docIds.retrieve().equals(id)){  //for last obj
-               return true;
-           }
-        return false;
-                }
-        
-        
-        
         
         
     // Adds a document's words to the inverted index
-    public void addWord(int docId, String WORD) {
+    public void addWord(int ID, String WORD) {
             if (!indexWordEntry(WORD)){
-            datastructurep.LinkedList<Integer> newDocIds = new datastructurep.LinkedList<>();
-            newDocIds.insert(docId);
-            words.insert(WORD);
-            docIdsList.insert(newDocIds);
+            WordEntry newWord = new WordEntry(WORD);
+            newWord.getDocIds().insert(ID);
+            invertedList.insert(newWord);
             }
             else {
-                datastructurep.LinkedList<Integer> exist = docIdsList.retrieve();
-                    addID(docId,exist);                }
+                WordEntry exist = invertedList.retrieve();
+                    exist.addID(ID);                }
     }
     
-  
+         
         
+    private boolean indexWordEntry(String w) {
+        if (invertedList.isEmpty()) return false;
         
-    private boolean indexWordEntry(String word) {
-        if (words.isEmpty()) return false;
+        invertedList.findFirst();
         
-        words.findFirst();
-        
-        while (!words.last()) {
-            if (words.retrieve().equals(word)) return true;
-            words.findNext();
+        while (!invertedList.last()) {
+            if (invertedList.retrieve().getWord().equals(w)) return true;
+            invertedList.findNext();
         }
         
         //for last node
-        return words.retrieve().equals(word);
+        return invertedList.retrieve().getWord().equals(w);
     }
 
 public void displayInvertedIndex() {
-        words.findFirst();
-        docIdsList.findFirst();
+        invertedList.findFirst();
 
-        while (!words.last()) {
-            String word = words.retrieve();
-            System.out.print("\nWord: " + word + " [ ");
-            datastructurep.LinkedList<Integer> docIds = docIdsList.retrieve();
-            docIds.display();
-            System.out.print(" ]");
-            words.findNext();
-            docIdsList.findNext();
+        while (!invertedList.last()) {
+            WordEntry l = invertedList.retrieve();
+            System.out.print("\nWord: " + l.getWord() + " [ ");
+            l.getDocIds().display();
+            System.out.print("]");
+            invertedList.findNext();
         }
         
         //for last node
-        String word = words.retrieve();
-        System.out.print("\nWord: " + word + " [ ");
-        datastructurep.LinkedList<Integer> docIds = docIdsList.retrieve();
-        docIds.display();
-        System.out.print(" ]");
-    }
+            WordEntry l = invertedList.retrieve();
+            System.out.print("\nWord: " + l.getWord() + " [ ");
+            l.getDocIds().display();
+            System.out.print("]");
+   }
           
        public static void main(String[] args) {
         InvertedIndex invertedIndex = new InvertedIndex();

@@ -20,5 +20,4 @@ public class Document {
         this.Words = Words;
     }
     
-
 }
