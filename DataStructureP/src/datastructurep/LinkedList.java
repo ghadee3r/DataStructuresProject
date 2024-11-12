@@ -63,6 +63,9 @@ public class LinkedList<T> {
     System.out.println(line.toString().trim());  // Print all words in a single line
 }
 
+
+ 
+ 
   public void insert(T d) {
         Node <T> p=new Node<T>(d);
         
@@ -97,7 +100,8 @@ public class LinkedList<T> {
                 current=current.next;
                 else
                     current=Head;
-                }
+    }    
+  
     
     public void display(){
         if (Head==null)
@@ -120,4 +124,6 @@ public class LinkedList<T> {
         L.remove();
         L.display();
     }
+
+    
 }

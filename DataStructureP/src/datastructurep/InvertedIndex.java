@@ -8,47 +8,60 @@ package datastructurep;
  *
  * @author nouraalmadhi
  */
-import java.util.LinkedList;
 
 public class InvertedIndex {
-    private LinkedList<Word> wordsList;
+    private datastructurep.LinkedList<Word> invertedList;
 
     public InvertedIndex() {
-        wordsList = new LinkedList<>();
+        invertedList = new datastructurep.LinkedList<Word>();
     }
 
     // Adds a document's words to the inverted index
     public void addWord(int docId, String WORD) {
-          
-            Word w = getWordEntry(WORD); //اشيك لو الورد موجودة في اللست الاصلية او لا
-            if (w == null) { //لو رجع لي نل يعني مو موجودة و اضيف اوبجكت ورد جديد
-                w = new Word(WORD);
-                wordsList.add(w);
+            if (!indexWordEntry(WORD)){
+                Word w = new Word(WORD); 
+                w.doc_Ids.insert(docId);
+                invertedList.insert(w);
             }
-            w.addID(docId); //لو موجوده من قبل اضيف بس الايدي
+            else {
+                Word exist = invertedList.retrieve();
+                exist.addID(docId);
+                }
         
     }
 
-    // Retrieves the Word object for a specific term, or returns null if it doesn't exist
-    private Word getWordEntry(String term) {
-        for (Word word : wordsList) {
-            if (word.word.equals(term)) {
-                return word;  
-            }
-        }
-        return null;
-    }
-    
-    public void displayInvertedIndex() {
-        for (Word word : wordsList) {
-            System.out.print("\n"+ word.word + ":");
-             
-            word.doc_Ids.display();
-      
-        }
+    private boolean indexWordEntry(String term) {
+       if(invertedList==null||invertedList.isEmpty())
+           return false;
+       invertedList.findFirst();
+       while(!invertedList.last()){
+           if(invertedList.retrieve().equals(term))
+               return true;
+           invertedList.findNext();    
+       }
+       //for last node
+       if(invertedList.retrieve().equals(term))
+            return true;
+       return false;
     }
 
-    
+     void displayInvertedIndex() {
+         invertedList.findFirst();
+         while(!invertedList.last()){
+             Word W = invertedList.retrieve();
+             System.out.print("\nWord: "+W.word + "[ ");
+             W.doc_Ids.display();
+             System.out.print("]");
+             invertedList.findNext();
+         }
+         //for last node
+         Word W = invertedList.retrieve();
+         System.out.print("\nWord: "+W.word + "[ ");
+         W.doc_Ids.display();
+         System.out.print("]");
+
+     }
+          
        public static void main(String[] args) {
         InvertedIndex invertedIndex = new InvertedIndex();
         invertedIndex.addWord(1,"flag");
@@ -57,7 +70,8 @@ public class InvertedIndex {
         // Display inverted index
         invertedIndex.displayInvertedIndex();
                     }
-       
+
+
        
 }// end class InvertedIndex
 
