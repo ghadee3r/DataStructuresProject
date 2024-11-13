@@ -38,7 +38,28 @@ public class Index {
             System.out.println("ID:"+ doc.docuID);
             doc.Words.displayWordsInline();
     }
-    
+    public Document getDocByID(int docId) {
+    if (documents.isEmpty()) {
+        return null; 
+    }
+
+    documents.findFirst();
+    while (!documents.last()) {
+        Document doc = (Document) documents.retrieve();
+        if (doc.docuID == docId) { 
+            return doc; 
+        }
+        documents.findNext(); 
+    }
+
+    Document doc = (Document) documents.retrieve();
+    if (doc.docuID == docId) {
+        return doc;
+    }
+
+    return null; 
+}
+
     public static void main (String[]args){
 
 Index ind1=new Index () ;
