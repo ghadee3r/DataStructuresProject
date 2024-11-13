@@ -108,6 +108,27 @@ public LinkedList<String> WordsLLMethod (String content, int id){
         loadStopWords(StopW);
                  readDocuments(Doc);
     }
+    
+    public void displayDocsByIds(LinkedList<Integer> ids) {
+    if (ids.isEmpty()) {
+        System.out.println("The provided list of IDs is empty.");
+        return;
+    }
+
+    ids.findFirst();
+    while (ids.retrieve() != null) {
+        int docId = ids.retrieve(); // Get the current document ID
+        Document doc = index.getDocByID(docId); // Retrieve the document from the index
+        if (doc != null) {
+            System.out.println("Document ID: " + doc.docuID);
+            doc.Words.displayWordsInline();
+        } else {
+            System.out.println("Document with ID " + docId + " not found.");
+        }
+        ids.findNext();
+    }
+}
+
     public static void main(String[] args) {
       Processor p = new Processor();
       p.LoadF("stop.txt", "dataset.csv");
@@ -115,6 +136,16 @@ public LinkedList<String> WordsLLMethod (String content, int id){
               System.out.println("\n----------------\n");
               p.invertedind.displayInvertedIndex();
         
+    System.out.println("\n----------------\n");
+
+    // Test displayDocsByIds
+    LinkedList<Integer> ids = new LinkedList<>();
+    ids.insert(1);
+    ids.insert(2);
+    ids.insert(4); // Assuming ID 4 does not exist
+
+    System.out.println("Documents for Given IDs:");
+    p.displayDocsByIds(ids);
     }
   
     
