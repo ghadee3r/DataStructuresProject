@@ -91,4 +91,32 @@ public class BST<T> {
              preOrder(p.right);
         
     }
+
+   public boolean insert(String k, T val) {
+    if (root == null) {
+     
+        current = root = new BSTNode<T>(k, val);
+        return true;
+    }
+
+    BSTNode<T> p = current;
+
+    if (FindKey(k)) {
+        current = p;
+        return false;
+    }
+
+    BSTNode<T> tmp = new BSTNode<T>(k, val);
+
+    if (k.compareToIgnoreCase(current.key) < 0) {
+        current.left = tmp;
+    } else {
+        current.right = tmp;
+    }
+
+    current = tmp;
+
+    return true; 
+}
+
 }
