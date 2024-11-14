@@ -28,6 +28,10 @@ public class BST<T> {
         current=root=null;
     }
     
+    public BSTNode<T> getRoot() {
+    return root;
+}
+
     public void clear(){
         current=root=null;
     }
