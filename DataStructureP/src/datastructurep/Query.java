@@ -16,27 +16,44 @@ public class Query {
        this.inverted=inverted;
    }
    
-   public static LinkedList<Integer>andQuery(String Query){
-       LinkedList<Integer> A = new LinkedList<Integer>();
-        LinkedList<Integer> B = new LinkedList<Integer>();
-        String terms[]=Query.split("AND");
-        
-        if(terms.length==0)return A;
-        
-        boolean found = inverted.indexWordEntry(terms[0].trim().toLowerCase());
-        if (found)
-            A=inverted.invertedList.retrieve().getDocIds();
-                    
-                    for(int i=1; i<terms.length;i++)
-                     {
-                        found= inverted.indexWordEntry(terms[i].trim().toLowerCase());
-                                if (found)
-                                    B= inverted.invertedList.retrieve().getDocIds();
-                                            
-                                            A= andQuery(A, B);
-                    } return A;  
-   }
-   
+public static LinkedList<Integer> andQuery(String Query) {
+    LinkedList<Integer> A = new LinkedList<>();
+    LinkedList<Integer> B = new LinkedList<>();
+    String terms[] = Query.split("AND");
+
+    if (terms.length == 0) {
+        System.out.println("No terms in query.");
+        return A; // Return an empty list
+    }
+
+
+    // Process the first term
+    boolean found = inverted.indexWordEntry(terms[0].trim().toLowerCase());
+    if (found) {
+        A = inverted.invertedList.retrieve().getDocIds();
+        System.out.println("Doc IDs for term '" + terms[0].trim().toLowerCase() + "': " + A);
+    } else {
+        System.out.println("Term '" + terms[0].trim().toLowerCase() + "' not found in index.");
+        return A; // Return empty if the first term is not found
+    }
+
+    // Process remaining terms
+    for (int i = 1; i < terms.length; i++) {
+        System.out.println("Processing term: " + terms[i].trim().toLowerCase());
+        found = inverted.indexWordEntry(terms[i].trim().toLowerCase());
+        if (found) {
+            B = inverted.invertedList.retrieve().getDocIds();
+            System.out.println("Doc IDs for term '" + terms[i].trim().toLowerCase() + "': " + B);
+        } else {
+            System.out.println("Term '" + terms[i].trim().toLowerCase() + "' not found in index.");
+            return new LinkedList<>(); // Return empty if any term is not found
+        }
+        A = andQuery(A, B); // Perform intersection
+    }
+
+    return A;
+}
+
    
      public static LinkedList<Integer>andQuery(LinkedList<Integer>A, LinkedList<Integer>B){
          
@@ -69,13 +86,18 @@ public class Query {
                  
              }
      
-    public static boolean existsInResult(LinkedList<Integer> list, Integer element) {
-        list.findFirst();
-        while (!list.last()) {
-            if (list.retrieve().equals(element)) return true;
-            list.findNext();
-        }
-        return list.retrieve().equals(element); // Final check on last element
+  public static boolean existsInResult(LinkedList<Integer> list, Integer element) {
+    if (list.isEmpty()) {
+        return false; // No elements to check
     }
+
+    list.findFirst();
+    while (!list.last()) {
+        if (list.retrieve().equals(element)) return true;
+        list.findNext();
+    }
+    return list.retrieve() != null && list.retrieve().equals(element); // Final check
+}
+
    
 }

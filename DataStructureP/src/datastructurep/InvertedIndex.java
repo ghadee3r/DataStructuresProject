@@ -25,13 +25,17 @@ public class InvertedIndex {
             WordEntry newWord = new WordEntry(WORD);
             newWord.getDocIds().insert(ID);
             invertedList.insert(newWord);
+
             }
             else {
                 WordEntry exist = invertedList.retrieve();
-                    exist.addID(ID);                }
+                    exist.addID(ID);                
+            }            
     }
     
-         
+    
+
+     
         
     public boolean indexWordEntry(String w) {
         if (invertedList.isEmpty()) return false;
@@ -47,7 +51,18 @@ public class InvertedIndex {
         return invertedList.retrieve().getWord().equals(w);
     }
 
+    
+
+
+
+
+
+    
 public void displayInvertedIndex() {
+        if (invertedList.isEmpty()){
+            System.out.println("empty documents");
+        return; }
+        
         invertedList.findFirst();
 
         while (!invertedList.last()) {
@@ -72,6 +87,7 @@ public void displayInvertedIndex() {
         invertedIndex.addWord(3,"flag");
         // Display inverted index
         invertedIndex.displayInvertedIndex();
+        
                     }
 
 

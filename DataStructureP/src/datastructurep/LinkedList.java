@@ -40,12 +40,14 @@ public class LinkedList<T> {
         current.data=d;
     }
     
-    public T retrieve() {
-        if (current == null) {
-            return null;  // Handle case where current is null
-        }
-        return current.data;
+ public T retrieve() {
+    if (current == null) {
+        return null; 
     }
+    return current.data;
+}
+
+    
  public void displayWordsInline() {
     if (Head == null) {
         System.out.println("empty");
@@ -68,37 +70,30 @@ public class LinkedList<T> {
  
   public void insert(T d) {
         Node <T> p=new Node<T>(d);
-        
-        if (isEmpty())
-        {
+        if (isEmpty())  {
            Head=p;
-           current=p;
-            
+           current=p;  
         }
-        else{
-            
+        else{  
             p.next=current.next;
             current.next=p;
             current=p;
-        
         }
     }
+  
     public void remove(){
         if( current==Head){
             Head=Head.next;
         }
-        
-        else{
-            
+        else{   
             Node<T>p=Head;
             while(p.next!=current)
                 p=p.next;
-            
             p.next=current.next;
         }
                if(current.next!=null)
-                current=current.next;
-                else
+                    current=current.next;
+               else
                     current=Head;
     }    
   

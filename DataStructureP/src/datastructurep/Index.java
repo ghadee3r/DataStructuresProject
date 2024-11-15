@@ -19,6 +19,7 @@ public class Index {
         documents.insert(doc);
             }//end addDocument 
     
+
     
     public void displayDocs(){
         if (documents.isEmpty()){
@@ -38,25 +39,18 @@ public class Index {
             System.out.println("ID:"+ doc.docuID);
             doc.Words.displayWordsInline();
     }
-    public Document getDocByID(int docId) {
+    
+    public Document returnDocument(int docId) {
     if (documents.isEmpty()) {
         return null; 
     }
-
     documents.findFirst();
-    while (!documents.last()) {
+    while (documents.retrieve()!=null) {
         Document doc = (Document) documents.retrieve();
-        if (doc.docuID == docId) { 
+        if (doc.docuID == docId) 
             return doc; 
-        }
         documents.findNext(); 
     }
-
-    Document doc = (Document) documents.retrieve();
-    if (doc.docuID == docId) {
-        return doc;
-    }
-
     return null; 
 }
 

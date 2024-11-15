@@ -23,6 +23,7 @@ public Processor()
     stopW = new LinkedList<>();
     index = new Index();
     invertedind = new InvertedIndex();
+    invertedindBST = new InvertedIndexBST();
 }
 
 
@@ -57,6 +58,7 @@ public void loadStopWords(String stopWordsFile) {
             if (!isStopWord(word) && !word.isEmpty()) {
                 WordsLL.insert(word);
                 invertedind.addWord(id, word);
+                invertedindBST.addWord(id,word);
             }
         }
         
@@ -92,11 +94,6 @@ public LinkedList<String> WordsLLMethod (String content, int id){
 
                 LinkedList<String> WordsLL = WordsLLMethod(docContent, docId);
                 index.addDocument(new Document (docId,WordsLL));
-                
-               // Document document = new Document(docId, wordsList);
-
-               // System.out.print(  document.docuID +" ");
-              //  System.out.println(document.Words.displayWordsInline());
             }
             scan.close();
         } catch (Exception e) {
@@ -106,8 +103,9 @@ public LinkedList<String> WordsLLMethod (String content, int id){
 
     public void LoadF(String StopW, String Doc){
         loadStopWords(StopW);
-                 readDocuments(Doc);
+        readDocuments(Doc);
     }
+    
     
     public void displayDocsByIds(LinkedList<Integer> ids) {
     if (ids.isEmpty()) {
@@ -118,7 +116,7 @@ public LinkedList<String> WordsLLMethod (String content, int id){
     ids.findFirst();
     while (ids.retrieve() != null) {
         int docId = ids.retrieve(); // Get the current document ID
-        Document doc = index.getDocByID(docId); // Retrieve the document from the index
+        Document doc = index.returnDocument(docId); // Retrieve the document from the index
         if (doc != null) {
             System.out.println("Document ID: " + doc.docuID);
             doc.Words.displayWordsInline();
@@ -132,19 +130,22 @@ public LinkedList<String> WordsLLMethod (String content, int id){
     public static void main(String[] args) {
   
         Processor p = new Processor();
-      p.LoadF("stop.txt", "dataset.csv");
+        p.LoadF("stop.txt", "dataset.csv");
       
 
-             // p.index.displayDocs();
-              System.out.println("\n----------------\n");
-             p.invertedind.displayInvertedIndex();
+            // p.index.displayDocs();
+            // System.out.println("\n----------------\n");
+      
+            // p.invertedind.displayInvertedIndex();
         
     System.out.println("\n----------------\n");
     
+    
     Query q=new Query(p.invertedind);
-    LinkedList res=Query.andQuery("colorANDflag");
+    LinkedList res=Query.andQuery("clean AND create");
     p.displayDocsByIds(res);
-      /*
+    
+    /*
     // Test displayDocsByIds
     LinkedList<Integer> ids = new LinkedList<>();
     ids.insert(1);
@@ -152,12 +153,10 @@ public LinkedList<String> WordsLLMethod (String content, int id){
     ids.insert(4); // Assuming ID 4 does not exist
 
     System.out.println("Documents for Given IDs:");
-    p.displayDocsByIds(ids);
+    p.displayDocsByIds(ids); */
     
-    */
-      
+   
   
-    
     }
   
     
