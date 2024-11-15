@@ -130,14 +130,21 @@ public LinkedList<String> WordsLLMethod (String content, int id){
 }
 
     public static void main(String[] args) {
-      Processor p = new Processor();
+  
+        Processor p = new Processor();
       p.LoadF("stop.txt", "dataset.csv");
-              p.index.displayDocs();
+      
+
+             // p.index.displayDocs();
               System.out.println("\n----------------\n");
-              p.invertedind.displayInvertedIndex();
+             p.invertedind.displayInvertedIndex();
         
     System.out.println("\n----------------\n");
-
+    
+    Query q=new Query(p.invertedind);
+    LinkedList res=Query.andQuery("colorANDflag");
+    p.displayDocsByIds(res);
+      /*
     // Test displayDocsByIds
     LinkedList<Integer> ids = new LinkedList<>();
     ids.insert(1);
@@ -146,6 +153,11 @@ public LinkedList<String> WordsLLMethod (String content, int id){
 
     System.out.println("Documents for Given IDs:");
     p.displayDocsByIds(ids);
+    
+    */
+      
+  
+    
     }
   
     

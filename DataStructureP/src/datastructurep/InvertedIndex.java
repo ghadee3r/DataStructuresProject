@@ -10,7 +10,7 @@ package datastructurep;
  */
 
 public class InvertedIndex {
-    private datastructurep.LinkedList<WordEntry> invertedList;
+    public datastructurep.LinkedList<WordEntry> invertedList;
 
     public InvertedIndex() {
     invertedList = new datastructurep.LinkedList<>();
@@ -33,7 +33,7 @@ public class InvertedIndex {
     
          
         
-    private boolean indexWordEntry(String w) {
+    public boolean indexWordEntry(String w) {
         if (invertedList.isEmpty()) return false;
         
         invertedList.findFirst();
@@ -41,9 +41,9 @@ public class InvertedIndex {
         while (!invertedList.last()) {
             if (invertedList.retrieve().getWord().equals(w)) return true;
             invertedList.findNext();
-        }
+        } 
         
-        //for last node
+        //for last nodev
         return invertedList.retrieve().getWord().equals(w);
     }
 
