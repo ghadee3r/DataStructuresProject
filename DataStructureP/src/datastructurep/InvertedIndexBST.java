@@ -17,7 +17,7 @@ public InvertedIndexBST(){
 }
 
 public void addWord(int ID, String WORD) {
-            if (!searchWord_inInverted(WORD)){
+            if (!searchWord(WORD)){
             WordEntry newWord = new WordEntry(WORD);
             newWord.getDocIds().insert(ID);
             invertedList.insert(WORD,newWord);
@@ -27,7 +27,7 @@ public void addWord(int ID, String WORD) {
                     exist.addID(ID);                }
     }
 
-public boolean searchWord_inInverted(String WORD){
+public boolean searchWord(String WORD){
     return invertedList.FindKey(WORD);
 }
 public void displayInvertedIndex() {

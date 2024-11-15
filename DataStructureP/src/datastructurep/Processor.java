@@ -141,10 +141,16 @@ public LinkedList<String> WordsLLMethod (String content, int id){
     System.out.println("\n----------------\n");
     
     
-    Query q=new Query(p.invertedind);
+    Query q=new Query(p.invertedind,p.invertedindBST);
     LinkedList res=Query.andQuery("clean AND create");
     p.displayDocsByIds(res);
-    
+    System.out.println("\n---------------- OR Query ----------------");
+    LinkedList<Integer> orResult = Query.ORQuery("ai OR accurate");
+    p.displayDocsByIds(orResult);
+
+    System.out.println("\n---------------- ORBST Query ----------------");
+    LinkedList<Integer> orBstResult = Query.ORBSTQuery("weather OR warming");
+    p.displayDocsByIds(orBstResult);
     /*
     // Test displayDocsByIds
     LinkedList<Integer> ids = new LinkedList<>();
