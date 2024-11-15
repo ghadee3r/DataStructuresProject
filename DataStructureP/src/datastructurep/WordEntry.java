@@ -43,4 +43,10 @@ public class WordEntry {
         }
         return docIds.retrieve().equals(docId);  // for last element
     }
+    
+    @Override
+public String toString() {
+    return "Word: " + word + ", Doc IDs: " + docIds.retrieve();
+}
+
 }// end class WordEntry

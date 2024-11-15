@@ -28,9 +28,6 @@ public class BST<T> {
         current=root=null;
     }
     
-    public BSTNode<T> getRoot() {
-    return root;
-}
 
     public void clear(){
         current=root=null;
@@ -67,16 +64,7 @@ public class BST<T> {
             
             
         }
-        public void inOrder(BSTNode p){
-            if (p==null)
-                return;
-            inOrder(p.left);
-            System.out.println("keys: "+p.key);
-              System.out.println(p.data);
-              inOrder(p.right);
-            
-            
-        }
+
         
         public void preOrder(){
             if (root==null)
@@ -85,16 +73,20 @@ public class BST<T> {
                 preOrder(root);
         }
         
-    public void preOrder(BSTNode p){
+    private void preOrder(BSTNode p){
         if (p==null)
             return;
-                   System.out.println("keys: "+p.key);
-                              System.out.println(p.data.toString());
+             
+             System.out.println("keys: "+p.key);
+             System.out.println(((WordEntry)p.data).toString());
                               
              preOrder(p.left);
              preOrder(p.right);
         
     }
+
+
+    
 
    public boolean insert(String k, T val) {
     if (root == null) {

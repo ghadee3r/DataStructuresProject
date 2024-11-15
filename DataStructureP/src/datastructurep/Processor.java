@@ -168,6 +168,7 @@ public LinkedList<String> WordsLLMethod (String content, int id){
     System.out.println("Documents for Given IDs:");
     p.displayDocsByIds(ids); */
     
+    p.invertedindBST.displayInvertedIndex();
    
   
     }
