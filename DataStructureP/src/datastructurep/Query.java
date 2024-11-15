@@ -31,7 +31,7 @@ public static LinkedList<Integer> andQuery(String Query) {
     boolean found = inverted.indexWordEntry(terms[0].trim().toLowerCase());
     if (found) {
         A = inverted.invertedList.retrieve().getDocIds();
-        System.out.println("Doc IDs for term '" + terms[0].trim().toLowerCase() + "': " + A);
+        System.out.println("Doc IDs for term: " + terms[0].trim().toLowerCase());
     } else {
         System.out.println("Term '" + terms[0].trim().toLowerCase() + "' not found in index.");
         return A; // Return empty if the first term is not found
@@ -39,11 +39,11 @@ public static LinkedList<Integer> andQuery(String Query) {
 
     // Process remaining terms
     for (int i = 1; i < terms.length; i++) {
-        System.out.println("Processing term: " + terms[i].trim().toLowerCase());
+     
         found = inverted.indexWordEntry(terms[i].trim().toLowerCase());
         if (found) {
             B = inverted.invertedList.retrieve().getDocIds();
-            System.out.println("Doc IDs for term '" + terms[i].trim().toLowerCase() + "': " + B);
+            System.out.println("Doc IDs for term: " + terms[i].trim().toLowerCase() );
         } else {
             System.out.println("Term '" + terms[i].trim().toLowerCase() + "' not found in index.");
             return new LinkedList<>(); // Return empty if any term is not found
