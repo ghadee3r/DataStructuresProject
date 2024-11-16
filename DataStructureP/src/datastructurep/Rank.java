@@ -91,37 +91,23 @@ public class Rank {
 }
 
 
-
-
 public void insertID_IntoSortedList(int id) {
-    if (inQueryDocs.isEmpty()) {
+        if (inQueryDocs.isEmpty()) {
         inQueryDocs.insert(id);
         return;
     }
-
-    LinkedList<Integer> tempList = new LinkedList<>();
-    boolean inserted = false;
-
     inQueryDocs.findFirst();
     while (inQueryDocs.retrieve() != null) {
-        if (!inserted && id < inQueryDocs.retrieve()) {
-            tempList.insert(id);
-            inserted = true;
-        }
-        tempList.insert(inQueryDocs.retrieve());
-        if (!inQueryDocs.last()) {
-            inQueryDocs.findNext();
-        } else {
-            break;
-        }
+       if (id < inQueryDocs.retrieve()) {
+          int temp = inQueryDocs.retrieve();
+           inQueryDocs.update(id);
+           inQueryDocs.insert(temp);  }
+       inQueryDocs.findNext();
     }
-
-    if (!inserted) {
-        tempList.insert(id);
-    }
-
-    inQueryDocs = tempList; // Replace original list with the sorted temp list
+    inQueryDocs.insert(id);
 }
+
+
 
 public void insert_IntoSortedList() {
     if (inQueryDocs.isEmpty()) {

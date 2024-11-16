@@ -2,17 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group name="Group1">
-            <file>file:/C:/Users/lamee/OneDrive/Documents/GitHub/DataStructuresProject/DataStructureP/src/datastructurep/BST.java</file>
-            <file>file:/C:/Users/lamee/OneDrive/Documents/GitHub/DataStructuresProject/DataStructureP/src/datastructurep/Query.java</file>
-            <file>file:/C:/Users/lamee/OneDrive/Documents/GitHub/DataStructuresProject/DataStructureP/src/datastructurep/LinkedList.java</file>
-            <file>file:/C:/Users/lamee/OneDrive/Documents/GitHub/DataStructuresProject/DataStructureP/src/datastructurep/Processor.java</file>
-            <file>file:/C:/Users/lamee/OneDrive/Documents/GitHub/DataStructuresProject/DataStructureP/src/datastructurep/InvertedIndex.java</file>
-            <file>file:/C:/Users/lamee/OneDrive/Documents/GitHub/DataStructuresProject/DataStructureP/src/datastructurep/WordEntry.java</file>
-            <file>file:/C:/Users/lamee/OneDrive/Documents/GitHub/DataStructuresProject/DataStructureP/src/datastructurep/InvertedIndexBST.java</file>
-            <file>file:/C:/Users/lamee/OneDrive/Documents/GitHub/DataStructuresProject/DataStructureP/src/datastructurep/Document.java</file>
-            <file>file:/C:/Users/lamee/OneDrive/Documents/GitHub/DataStructuresProject/DataStructureP/src/datastructurep/Index.java</file>
-        </group>
         <group>
             <file>file:/Users/nouraalmadhi/Desktop/DataStructuresProject/DataStructureP/src/datastructurep/Query.java</file>
             <file>file:/Users/nouraalmadhi/Desktop/DataStructuresProject/DataStructureP/src/datastructurep/InvertedIndex.java</file>
@@ -23,6 +12,18 @@
             <file>file:/Users/nouraalmadhi/Desktop/DataStructuresProject/DataStructureP/src/datastructurep/Processor.java</file>
             <file>file:/Users/nouraalmadhi/Desktop/DataStructuresProject/DataStructureP/src/datastructurep/InvertedIndexBST.java</file>
             <file>file:/Users/nouraalmadhi/Desktop/DataStructuresProject/DataStructureP/src/datastructurep/LinkedList.java</file>
+        </group>
+        <group name="Group1">
+            <file>file:/C:/Users/lamee/OneDrive/Documents/GitHub/DataStructuresProject/DataStructureP/src/datastructurep/BST.java</file>
+            <file>file:/C:/Users/lamee/OneDrive/Documents/GitHub/DataStructuresProject/DataStructureP/src/datastructurep/Query.java</file>
+            <file>file:/C:/Users/lamee/OneDrive/Documents/GitHub/DataStructuresProject/DataStructureP/src/datastructurep/Rank.java</file>
+            <file>file:/C:/Users/lamee/OneDrive/Documents/GitHub/DataStructuresProject/DataStructureP/src/datastructurep/LinkedList.java</file>
+            <file>file:/C:/Users/lamee/OneDrive/Documents/GitHub/DataStructuresProject/DataStructureP/src/datastructurep/Processor.java</file>
+            <file>file:/C:/Users/lamee/OneDrive/Documents/GitHub/DataStructuresProject/DataStructureP/src/datastructurep/InvertedIndex.java</file>
+            <file>file:/C:/Users/lamee/OneDrive/Documents/GitHub/DataStructuresProject/DataStructureP/src/datastructurep/WordEntry.java</file>
+            <file>file:/C:/Users/lamee/OneDrive/Documents/GitHub/DataStructuresProject/DataStructureP/src/datastructurep/InvertedIndexBST.java</file>
+            <file>file:/C:/Users/lamee/OneDrive/Documents/GitHub/DataStructuresProject/DataStructureP/src/datastructurep/Document.java</file>
+            <file>file:/C:/Users/lamee/OneDrive/Documents/GitHub/DataStructuresProject/DataStructureP/src/datastructurep/Index.java</file>
         </group>
     </open-files>
 </project-private>
