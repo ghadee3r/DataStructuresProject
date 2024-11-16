@@ -142,7 +142,7 @@ public LinkedList<String> WordsLLMethod (String content, int id){
     
     
     Query q=new Query(p.invertedind);
-    Query q2= new Query (p.invertedindBST);
+    BSTQuery q2= new BSTQuery (p.invertedindBST);
     
     LinkedList res=Query.andQuery("clean AND create");
     p.displayDocsByIds(res);
@@ -151,7 +151,7 @@ public LinkedList<String> WordsLLMethod (String content, int id){
     p.displayDocsByIds(orResult);
 
     System.out.println("\n---------------- ORBST Query ----------------");
-    LinkedList<Integer> orBstResult = Query.ORBSTQuery("weather OR warming");
+    LinkedList<Integer> orBstResult = BSTQuery.ORQuery("weather OR warming");
     p.displayDocsByIds(orBstResult);
     
     System.out.println("\n---------------- OR AND Query ----------------");
