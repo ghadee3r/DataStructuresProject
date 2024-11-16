@@ -32,7 +32,9 @@ public boolean searchWord(String WORD){
 }
 
 public void displayInvertedIndex(){
-    if (invertedList.empty()||invertedList==null) return;
+    if (invertedList.empty()||invertedList==null) {
+     System.out.println("Empty"); 
+     return; }
     invertedList.preOrder();
 }
 

@@ -133,11 +133,12 @@ public LinkedList<String> WordsLLMethod (String content, int id){
         p.LoadF("stop.txt", "dataset.csv");
       
 
-            // p.index.displayDocs();
-            // System.out.println("\n----------------\n");
+            p.index.displayDocs();
+            System.out.println("\n----------------\n");
       
-            // p.invertedind.displayInvertedIndex();
-        
+            p.invertedind.displayInvertedIndex(); //using linkedList
+            p.invertedindBST.displayInvertedIndex(); //using BST
+
     System.out.println("\n----------------\n");
     
     
@@ -158,19 +159,18 @@ public LinkedList<String> WordsLLMethod (String content, int id){
   LinkedList res2=Query.MixedQuery("market OR sports AND warming");
     p.displayDocsByIds(res2);
     
-    /*
-    // Test displayDocsByIds
-    LinkedList<Integer> ids = new LinkedList<>();
-    ids.insert(1);
-    ids.insert(2);
-    ids.insert(4); // Assuming ID 4 does not exist
-
-    System.out.println("Documents for Given IDs:");
-    p.displayDocsByIds(ids); */
-    
-    p.invertedindBST.displayInvertedIndex();
    
-  
+        System.out.println("\n---------------- RANK ----------------");
+
+   
+    Rank ranking = new Rank(p.invertedindBST, p.index);
+    String query = "market analysts forecast";
+    System.out.println("\nRanking Documents for Query: " + query);
+    ranking.RankQuery(query);
+    System.out.println("\nRanked Documents:");
+    ranking.displayRankedDocs();
+    
+
     }
   
     

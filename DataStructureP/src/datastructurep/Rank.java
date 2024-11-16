@@ -13,7 +13,7 @@ public class Rank {
     InvertedIndexBST invBST;
     Index indx; 
     LinkedList<Integer> inQueryDocs; 
-    LinkedList<DocRank> rankDocs; 
+    LinkedList<DocRank> rankDocs;
     
      public Rank(InvertedIndexBST invBST, Index indx) {
         this.invBST = invBST;
@@ -45,109 +45,137 @@ public class Rank {
         }
         return score;
     }
-    /*
+    
+    
     public void RankQuery(String query) {
-        rankDocs = new LinkedList<>(); // Clear previous ranks
-
+        if(query.length()==0)return;
+        LinkedList<Integer> L = new LinkedList<>();
         String[] terms = query.split(" ");
-        inQueryDocs = getRelevantDocs(terms); // Retrieve relevant document IDs
-
-        // Loop through relevant documents and calculate their ranks
-        inQueryDocs.findFirst();
-        while (inQueryDocs.retrieve() != null) {
-            int docId = inQueryDocs.retrieve();
-            Document doc = indx.returnDocument(docId); // Retrieve document from index
-
-            if (doc != null) {
-                int rank = RankScore(doc, query);
-                rankDocs.insert(new DocRank(docId, rank)); // Add to ranked documents
-            }
-
-            if (!inQueryDocs.last()) {
-                inQueryDocs.findNext();
-            } else {
-                break;
-            }
-        }
-
-        sortRankedDocs(); // Sort documents by rank
-        displayRankedDocs(); // Display ranked results
-    }
-
-    // Retrieve document IDs relevant to the query terms
-    private LinkedList<Integer> getRelevantDocs(String[] terms) {
-        LinkedList<Integer> relevantDocs = new LinkedList<>();
-
+        boolean found = false;
         for (String term : terms) {
-            if (invBST.searchWord(term.toLowerCase())) {
-                WordEntry entry = invBST.invertedList.retrieve();
-                LinkedList<Integer> docIds = entry.getDocIds();
-
-                // Add all document IDs from the word entry to the relevantDocs list
-                docIds.findFirst();
-                while (docIds.retrieve() != null) {
-                    if (!existsInList(relevantDocs, docIds.retrieve())) {
-                        relevantDocs.insert(docIds.retrieve());
-                    }
-                    if (!docIds.last()) {
-                        docIds.findNext();
-                    } else {
-                        break;
-                    }
-                }
+            found=invBST.searchWord(term);
+            if (found) {
+            L=invBST.invertedList.retrieve().getDocIds();
+            sortRankedDocs(L); // Sort documents by rank
             }
         }
-
-        return relevantDocs;
     }
 
-        // Check if a value exists in a LinkedList
+
     public boolean existsInList(LinkedList<Integer> list, int value) {
         list.findFirst();
         while (list.retrieve() != null) {
             if (list.retrieve() == value) {
                 return true;
             }
-            if (!list.last()) {
+            if (!list.last()) 
                 list.findNext();
-            } else {
-                break;
-            }
+             else 
+                break;   
         }
         return false;
     }
 
-    // Sort ranked documents by their rank scores in descending order
-    public void sortRankedDocs() {
-        LinkedList<DocRank> sortedList = new LinkedList<>();
-        while (!rankDocs.isEmpty()) {
-            rankDocs.findFirst();
-            DocRank highest = rankDocs.retrieve();
-            rankDocs.findNext();
-
-            while (!rankDocs.last()) {
-                DocRank current = rankDocs.retrieve();
-                if (current.rank > highest.rank) {
-                    highest = current;
-                }
-                rankDocs.findNext();
+    public void sortRankedDocs(LinkedList<Integer> IDs) {
+    IDs.findFirst();
+    while (IDs.retrieve() != null) {
+        int id = IDs.retrieve();
+        if (!existsInList(inQueryDocs, id)) {
+            insertID_IntoSortedList(IDs.retrieve());
             }
+        if (!IDs.last()) 
+            IDs.findNext();
+         else 
+            break;   
+    }
+}
 
-            sortedList.insert(highest);
-            rankDocs.remove(); // Remove the highest-ranked doc from the original list
+
+
+
+public void insertID_IntoSortedList(int id) {
+    if (inQueryDocs.isEmpty()) {
+        inQueryDocs.insert(id);
+        return;
+    }
+
+    LinkedList<Integer> tempList = new LinkedList<>();
+    boolean inserted = false;
+
+    inQueryDocs.findFirst();
+    while (inQueryDocs.retrieve() != null) {
+        if (!inserted && id < inQueryDocs.retrieve()) {
+            tempList.insert(id);
+            inserted = true;
         }
+        tempList.insert(inQueryDocs.retrieve());
+        if (!inQueryDocs.last()) {
+            inQueryDocs.findNext();
+        } else {
+            break;
+        }
+    }
 
-        rankDocs = sortedList;
-    } */
+    if (!inserted) {
+        tempList.insert(id);
+    }
+
+    inQueryDocs = tempList; // Replace original list with the sorted temp list
+}
+
+public void insert_IntoSortedList() {
+    if (inQueryDocs.isEmpty()) {
+        System.out.println("empty query");
+        return;
+    }
+    inQueryDocs.findFirst();
+    while (!inQueryDocs.last()) {
+        int docId = inQueryDocs.retrieve();
+        Document d = indx.returnDocument(docId);
+        int rank = RankScore(d, query);
+        insert_IntoSortedList(new DocRank(docId, rank));
+
+        inQueryDocs.findNext();
+    }
+    // for last
+    int docId = inQueryDocs.retrieve();
+    Document d = indx.returnDocument(docId);
+    int rank = RankScore(d, query);
+    insert_IntoSortedList(new DocRank(docId, rank));
+}
+
+public void insert_IntoSortedList(DocRank dr) {
+    if (rankDocs.isEmpty()) {
+        rankDocs.insert(dr);
+        return;
+    }
+    rankDocs.findFirst();
+    while (!rankDocs.last()) {
+        if (dr.rank > rankDocs.retrieve().rank) {
+            rankDocs.insert(dr); 
+            return;
+        }
+        rankDocs.findNext();
+    }
+    //for last
+    if (dr.rank>rankDocs.retrieve().rank) 
+        rankDocs.insert(dr); 
+    else {
+        rankDocs.findNext();
+        rankDocs.insert(dr);
+    }
+}
 
     // Display ranked documents
     public void displayRankedDocs() {
         System.out.println("Doc ID:     Score:");
         rankDocs.findFirst();
-        while (rankDocs.retrieve() != null) {
+        while (!rankDocs.last()) {
             rankDocs.retrieve().displayIdRank();
             rankDocs.findNext();
         }
+         rankDocs.retrieve().displayIdRank();
+            rankDocs.findNext();
     }
     
      class DocRank {
@@ -165,5 +193,43 @@ public class Rank {
         
     }//end DocRank
     
-    
+    // Main method for testing
+public static void main(String[] args) {
+    // Create instances of required components
+    InvertedIndexBST invBST = new InvertedIndexBST();
+    Index indx = new Index();
+
+    // Populate the inverted index with some data
+    invBST.addWord(1, "hello");
+    invBST.addWord(1, "world");
+    invBST.addWord(2, "hello");
+
+    // Create Document 1
+    LinkedList<String> words = new LinkedList<>();
+    words.insert("hello");
+    words.insert("world");
+    Document d1 = new Document(1, words);
+
+    // Create Document 2
+    LinkedList<String> words2 = new LinkedList<>();
+    words2.insert("hello");
+    Document d2 = new Document(2, words2);
+
+    // Add documents to the index
+    indx.addDocument(d1);
+    indx.addDocument(d2);
+
+    // Create a Rank instance
+    Rank ranker = new Rank(invBST, indx);
+
+    // Define a query
+    String query = "hello world";
+
+    // Rank the query
+    ranker.RankQuery(query);
+
+    // Display the ranked documents
+    ranker.displayRankedDocs();
+}
+
 }//end Rank
