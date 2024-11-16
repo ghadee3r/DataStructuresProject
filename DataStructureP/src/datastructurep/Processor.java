@@ -164,7 +164,7 @@ public LinkedList<String> WordsLLMethod (String content, int id){
 
    
     Rank ranking = new Rank(p.invertedindBST, p.index,"market analysts forecast");
-    ranking.insert_IntoSortedList();
+    ranking.RankQuery("market analysts forecast");
     ranking.displayRankedDocs();
     /*
     String query = "market analysts forecast";
