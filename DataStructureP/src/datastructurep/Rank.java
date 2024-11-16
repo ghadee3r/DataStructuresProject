@@ -18,8 +18,8 @@ public class Rank {
      public Rank(InvertedIndexBST invBST, Index indx) {
         this.invBST = invBST;
         this.indx = indx;
-        this.inQueryDocs = new LinkedList<>();
-        this.rankDocs = new LinkedList<>();
+        this.inQueryDocs = new LinkedList<Integer>();
+        this.rankDocs = new LinkedList<DocRank>();
     }
     
    
@@ -35,7 +35,23 @@ public class Rank {
         }
         return count;
     }
-    
+    /*
+        public static int TermFrequency(Document doc, String term) {
+        int count = 0;
+        LinkedList<String> WORDS = doc.Words; 
+        if(WORDS.isEmpty()) return 0;
+        WORDS.findFirst();
+        
+        while (!WORDS.last()){
+            if (WORDS.retrieve().equalsIgnoreCase(term))
+                count++;
+                WORDS.findNext();
+        }
+           if (WORDS.retrieve().equalsIgnoreCase(term))
+                count++;
+        return count;
+    }
+    */
     public static int RankScore(Document doc, String query) {
         if(query.length()==0) return 0;
         String[] terms = query.split(" "); 
@@ -52,6 +68,8 @@ public class Rank {
         LinkedList<Integer> L = new LinkedList<>();
         String[] terms = query.split(" ");
         boolean found = false;
+        
+        
         for (String term : terms) {
             found=invBST.searchWord(term);
             if (found) {
@@ -77,6 +95,8 @@ public class Rank {
     }
 
     public void sortRankedDocs(LinkedList<Integer> IDs) {
+        if (IDs.isEmpty())
+            return;
     IDs.findFirst();
     while (IDs.retrieve() != null) {
         int id = IDs.retrieve();
@@ -97,13 +117,24 @@ public void insertID_IntoSortedList(int id) {
         return;
     }
     inQueryDocs.findFirst();
-    while (inQueryDocs.retrieve() != null) {
+    while (!inQueryDocs.last()) {
+        
        if (id < inQueryDocs.retrieve()) {
-          int temp = inQueryDocs.retrieve();
+          Integer temp = inQueryDocs.retrieve();
            inQueryDocs.update(id);
-           inQueryDocs.insert(temp);  }
-       inQueryDocs.findNext();
-    }
+           inQueryDocs.insert(temp);   //if
+     return;}
+       else
+             inQueryDocs.findNext();
+         
+    }// while
+      if (id < inQueryDocs.retrieve()) {
+          Integer temp = inQueryDocs.retrieve();
+           inQueryDocs.update(id);
+           inQueryDocs.insert(temp);
+      return;
+      } //if
+      else
     inQueryDocs.insert(id);
 }
 
@@ -115,12 +146,15 @@ public void insert_IntoSortedList() {
         return;
     }
     inQueryDocs.findFirst();
+    
     while (!inQueryDocs.last()) {
+        
         int docId = inQueryDocs.retrieve();
         Document d = indx.returnDocument(docId);
+        
         int rank = RankScore(d, query);
+        
         insert_IntoSortedList(new DocRank(docId, rank));
-
         inQueryDocs.findNext();
     }
     // for last
@@ -136,24 +170,36 @@ public void insert_IntoSortedList(DocRank dr) {
         return;
     }
     rankDocs.findFirst();
+    
     while (!rankDocs.last()) {
         if (dr.rank > rankDocs.retrieve().rank) {
-            rankDocs.insert(dr); 
+            DocRank dr1 = rankDocs.retrieve();
+            rankDocs.update(dr);
+            rankDocs.insert(dr1); 
             return;
         }
+        else
         rankDocs.findNext();
     }
     //for last
-    if (dr.rank>rankDocs.retrieve().rank) 
-        rankDocs.insert(dr); 
+    if (dr.rank > rankDocs.retrieve().rank) {
+            DocRank dr1 = rankDocs.retrieve();
+            rankDocs.update(dr);
+            rankDocs.insert(dr1); 
+            return;
+        }
     else {
-        rankDocs.findNext();
+       
         rankDocs.insert(dr);
     }
 }
 
     // Display ranked documents
     public void displayRankedDocs() {
+        if (rankDocs.isEmpty()){
+            System.out.println("empty list");
+        }
+        else {
         System.out.println("Doc ID:     Score:");
         rankDocs.findFirst();
         while (!rankDocs.last()) {
@@ -161,7 +207,8 @@ public void insert_IntoSortedList(DocRank dr) {
             rankDocs.findNext();
         }
          rankDocs.retrieve().displayIdRank();
-            rankDocs.findNext();
+        }
+        
     }
     
      class DocRank {
