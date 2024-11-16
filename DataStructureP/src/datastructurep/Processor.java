@@ -163,12 +163,15 @@ public LinkedList<String> WordsLLMethod (String content, int id){
         System.out.println("\n---------------- RANK ----------------");
 
    
-    Rank ranking = new Rank(p.invertedindBST, p.index);
+    Rank ranking = new Rank(p.invertedindBST, p.index,"market analysts forecast");
+    ranking.insert_IntoSortedList();
+    ranking.displayRankedDocs();
+    /*
     String query = "market analysts forecast";
     System.out.println("\nRanking Documents for Query: " + query);
     ranking.RankQuery(query);
     System.out.println("\nRanked Documents:");
-    ranking.displayRankedDocs();
+    ranking.displayRankedDocs();*/
     
 
     }

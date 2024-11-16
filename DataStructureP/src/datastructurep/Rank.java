@@ -15,11 +15,12 @@ public class Rank {
     LinkedList<Integer> inQueryDocs; 
     LinkedList<DocRank> rankDocs;
     
-     public Rank(InvertedIndexBST invBST, Index indx) {
+     public Rank(InvertedIndexBST invBST, Index indx, String query) {
         this.invBST = invBST;
         this.indx = indx;
         this.inQueryDocs = new LinkedList<Integer>();
         this.rankDocs = new LinkedList<DocRank>();
+        this.query=query;
     }
     
    
@@ -253,16 +254,16 @@ public static void main(String[] args) {
     indx.addDocument(d2);
 
     // Create a Rank instance
-    Rank ranker = new Rank(invBST, indx);
+    //Rank ranker = new Rank(invBST, indx);
 
     // Define a query
     String query = "hello world";
 
     // Rank the query
-    ranker.RankQuery(query);
+    //ranker.RankQuery(query);
 
     // Display the ranked documents
-    ranker.displayRankedDocs();
+    //ranker.displayRankedDocs();
 }
 
 }//end Rank
