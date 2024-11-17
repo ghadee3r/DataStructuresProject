@@ -11,14 +11,20 @@ package datastructurep;
 public class Index {
     
     private LinkedList documents ;
+    private int DocCount;
     
     public Index() {
-    documents = new LinkedList();        }
+    documents = new LinkedList(); 
+    DocCount=0;}
     
     public void addDocument (Document doc ) {
         documents.insert(doc);
+        DocCount++;
             }//end addDocument 
     
+public int getNumberOfDocuments() {
+    return DocCount; 
+}
 
     
     public void displayDocs(){
