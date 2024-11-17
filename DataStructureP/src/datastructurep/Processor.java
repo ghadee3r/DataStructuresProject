@@ -127,54 +127,7 @@ public LinkedList<String> WordsLLMethod (String content, int id){
     }
 }
 
-    public static void main(String[] args) {
-  
-        Processor p = new Processor();
-        p.LoadF("stop.txt", "dataset.csv");
-      
 
-            p.index.displayDocs();
-            System.out.println("\n----------------\n");
-      
-            p.invertedind.displayInvertedIndex(); //using linkedList
-            p.invertedindBST.displayInvertedIndex(); //using BST
-
-    System.out.println("\n----------------\n");
-    
-    
-    Query q=new Query(p.invertedind);
-    BSTQuery q2= new BSTQuery (p.invertedindBST);
-    
-    LinkedList res=Query.andQuery("clean AND create");
-    p.displayDocsByIds(res);
-    System.out.println("\n---------------- OR Query ----------------");
-    LinkedList<Integer> orResult = Query.ORQuery("ai OR accurate");
-    p.displayDocsByIds(orResult);
-
-    System.out.println("\n---------------- ORBST Query ----------------");
-    LinkedList<Integer> orBstResult = BSTQuery.ORQuery("weather OR warming");
-    p.displayDocsByIds(orBstResult);
-    
-    System.out.println("\n---------------- OR AND Query ----------------");
-  LinkedList res2=Query.MixedQuery("market OR sports AND warming");
-    p.displayDocsByIds(res2);
-    
-   
-        System.out.println("\n---------------- RANK ----------------");
-
-   
-    Rank ranking = new Rank(p.invertedindBST, p.index,"market analysts forecast");
-    ranking.RankQuery("market analysts forecast");
-    ranking.displayRankedDocs();
-    /*
-    String query = "market analysts forecast";
-    System.out.println("\nRanking Documents for Query: " + query);
-    ranking.RankQuery(query);
-    System.out.println("\nRanked Documents:");
-    ranking.displayRankedDocs();*/
-    
-
-    }
   
     
 }

@@ -111,15 +111,6 @@ public void displayInvertedIndex() {
             System.out.print("]");
    }
           
-       public static void main(String[] args) {
-        InvertedIndex invertedIndex = new InvertedIndex();
-        invertedIndex.addWord(1,"flag");
-        invertedIndex.addWord(2,"green");
-        invertedIndex.addWord(3,"flag");
-        // Display inverted index
-        invertedIndex.displayInvertedIndex();
-        
-                    }
 
 
        

@@ -165,48 +165,5 @@ public class Rank {
         }
     }
 
-    // Main method for testing
-    public static void main(String[] args) {
-        // Create instances of required components
-        InvertedIndexBST invBST = new InvertedIndexBST();
-        Index indx = new Index();
-
-        // Populate the inverted index with some data
-        invBST.addWord(1, "data");
-        invBST.addWord(1, "structures");
-        invBST.addWord(1, "structures");
-        invBST.addWord(2, "data");
-
-        // Create Document 1
-        LinkedList<String> words1 = new LinkedList<>();
-        words1.insert("data");
-        words1.insert("structures");
-        words1.insert("is");
-        words1.insert("important");
-        Document d1 = new Document(1, words1);
-
-        // Create Document 2
-        LinkedList<String> words2 = new LinkedList<>();
-        words2.insert("data");
-        words2.insert("is");
-        words2.insert("important");
-        Document d2 = new Document(2, words2);
-
-        // Add documents to the index
-        indx.addDocument(d1);
-        indx.addDocument(d2);
-
-        // Define a query
-        String query = "data structures";
-        
-        // Create a Rank instance
-        Rank ranker = new Rank(invBST, indx, query);
-
-        // Rank the query
-        ranker.RankQuery(query);
-
-        // Display the ranked documents
-        ranker.displayRankedDocs();
-    }
 }
 

@@ -4,8 +4,6 @@
  */
 package datastructurep;
 
-import static datastructurep.Query.ORQuery;
-import static datastructurep.Query.andQuery;
 import static datastructurep.Query.existsInResult;
 
 /**
