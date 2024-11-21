@@ -46,8 +46,13 @@ public class LinkedList<T> {
     }
     return current.data;
 }
-
+public void clear() {
     
+    Head = null;      // Reset the head pointer to null
+    current = null;   // Reset the current pointer to null
+}
+
+
  public void displayWordsInline() {
     if (Head == null) {
         System.out.println("empty");

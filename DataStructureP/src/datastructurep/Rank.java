@@ -52,47 +52,50 @@ public class Rank {
         }
         return score;
     }
-    
     // Rank documents based on the query
-    public void RankQuery(String query) {
-        if (query.length() == 0) return;
+public void RankQuery(String query) {
+    if (query.length() == 0) return;
 
-        LinkedList<Integer> allDocIds = new LinkedList<>();
-        String[] terms = query.split(" ");
-        
-        for (String term : terms) {
-            boolean found = invBST.searchWord(term);
-            if (found) {
-                LinkedList<Integer> docIds = invBST.invertedList.retrieve().getDocIds();
-                docIds.findFirst();
-                while (docIds.retrieve() != null) {
-                    int docId = docIds.retrieve();
-                    if (!existsInList(allDocIds, docId)) {
-                        allDocIds.insert(docId); // Add unique document IDs
-                    }
-                    if (!docIds.last()) {
-                        docIds.findNext();
-                    } else {
-                        break;
-                    }
+    // Clear previous rankings
+    rankDocs.clear();
+
+    LinkedList<Integer> allDocIds = new LinkedList<>();
+    String[] terms = query.split(" ");
+
+    for (String term : terms) {
+        boolean found = invBST.searchWord(term);
+        if (found) {
+            LinkedList<Integer> docIds = invBST.invertedList.retrieve().getDocIds();
+            docIds.findFirst();
+            while (docIds.retrieve() != null) {
+                int docId = docIds.retrieve();
+                if (!existsInList(allDocIds, docId)) {
+                    allDocIds.insert(docId); // Add unique document IDs
+                }
+                if (!docIds.last()) {
+                    docIds.findNext();
+                } else {
+                    break;
                 }
             }
         }
+    }
 
-        // Calculate rank score for each document and insert into rankDocs
-        allDocIds.findFirst();
-        while (allDocIds.retrieve() != null) {
-            int docId = allDocIds.retrieve();
-            Document doc = indx.returnDocument(docId);
-            int score = RankScore(doc, query);
-            insertDR_IntoSortedList(new DocRank(docId, score));
-            if (!allDocIds.last()) {
-                allDocIds.findNext();
-            } else {
-                break;
-            }
+    // Calculate rank score for each document and insert into rankDocs
+    allDocIds.findFirst();
+    while (allDocIds.retrieve() != null) {
+        int docId = allDocIds.retrieve();
+        Document doc = indx.returnDocument(docId);
+        int score = RankScore(doc, query);
+        insertDR_IntoSortedList(new DocRank(docId, score));
+        if (!allDocIds.last()) {
+            allDocIds.findNext();
+        } else {
+            break;
         }
     }
+}
+
 
     public boolean existsInList(LinkedList<Integer> list, int value) {
         list.findFirst();
