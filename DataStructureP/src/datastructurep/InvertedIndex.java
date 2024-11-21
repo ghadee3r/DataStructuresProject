@@ -11,11 +11,9 @@ package datastructurep;
 
 public class InvertedIndex {
     public datastructurep.LinkedList<WordEntry> invertedList;
-    int VocabCount;
     
     public InvertedIndex() {
     invertedList = new datastructurep.LinkedList<>();
-    VocabCount=0;
     }
 
     
@@ -27,7 +25,6 @@ public class InvertedIndex {
             WordEntry newWord = new WordEntry(WORD);
             newWord.getDocIds().insert(ID);
             invertedList.insert(newWord);
-            VocabCount++;
             }
             else {
                 WordEntry exist = invertedList.retrieve();
@@ -36,9 +33,7 @@ public class InvertedIndex {
     }
     
     
-public int getVocabularySize() {
-    return VocabCount;
-}
+
 
      
         
@@ -59,31 +54,6 @@ public int getVocabularySize() {
     
 
 
-public int getTokenCount() {
-    int tokenCount = 0;
-
-    invertedList.findFirst(); // Start from the first element in the linked list
-    while (invertedList.retrieve() != null) {
-        WordEntry entry = invertedList.retrieve(); // Retrieve the current WordEntry
-        if (!entry.getDocIds().isEmpty()) { // Check if the WordEntry contains document IDs
-            entry.getDocIds().findFirst(); // Start from the first doc ID in the list
-            while (entry.getDocIds().retrieve() != null) { // Traverse the doc IDs
-                tokenCount++; // Increment the token count
-                if (!entry.getDocIds().last()) {
-                    entry.getDocIds().findNext(); // Move to the next doc ID
-                } else {
-                    break; // Stop when at the last element
-                }
-            }
-        }
-        if (!invertedList.last()) {
-            invertedList.findNext(); // Move to the next WordEntry in the inverted list
-        } else {
-            break; // Stop when at the last element of the inverted list
-        }
-    }
-    return tokenCount; // Return the total token count
-}
 
 
 
@@ -100,7 +70,8 @@ public void displayInvertedIndex() {
             WordEntry l = invertedList.retrieve();
             System.out.print("\nWord: " + l.getWord() + " [ ");
             l.getDocIds().display();
-            System.out.print("]");
+            System.out.print("]"+ "Number of Documents:" +l.getWordDocCount());
+            
             invertedList.findNext();
         }
         
@@ -108,7 +79,7 @@ public void displayInvertedIndex() {
             WordEntry l = invertedList.retrieve();
             System.out.print("\nWord: " + l.getWord() + " [ ");
             l.getDocIds().display();
-            System.out.print("]");
+            System.out.print("]"+ " Number of Documents: " +l.getWordDocCount());
    }
           
 

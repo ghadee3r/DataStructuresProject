@@ -11,20 +11,16 @@ package datastructurep;
 public class Index {
     
     private LinkedList documents ;
-    private int DocCount;
     
     public Index() {
     documents = new LinkedList(); 
-    DocCount=0;}
+}
     
     public void addDocument (Document doc ) {
         documents.insert(doc);
-        DocCount++;
             }//end addDocument 
     
-public int getNumberOfDocuments() {
-    return DocCount; 
-}
+
 
     
     public void displayDocs(){
@@ -38,12 +34,14 @@ public int getNumberOfDocuments() {
             Document doc= (Document) documents.retrieve();
             System.out.println("ID:"+ doc.docuID);
             doc.Words.displayWordsInline();
+            System.out.println("Token Count:"+ doc.getTokenCountPerDoc());
             documents.findNext();
             
         }
         Document doc= (Document) documents.retrieve();
             System.out.println("ID:"+ doc.docuID);
             doc.Words.displayWordsInline();
+            System.out.println("Token Count:"+ doc.getTokenCountPerDoc());
     }
     
     public Document returnDocument(int docId) {

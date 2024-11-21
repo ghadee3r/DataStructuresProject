@@ -63,7 +63,9 @@ public void loadStopWords(String stopWordsFile) {
         }
         
     }
+    
 
+    
     private  boolean isStopWord(String word) {
         stopW.findFirst();
         while (stopW.retrieve() != null) {

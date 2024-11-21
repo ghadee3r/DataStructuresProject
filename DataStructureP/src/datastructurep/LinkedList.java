@@ -17,6 +17,7 @@ package datastructurep;
 public class LinkedList<T> {
     private Node<T> Head;
     private Node <T> current;
+    int length=0;
     
     public LinkedList(){
         Head=current=null;
@@ -84,6 +85,7 @@ public void clear() {
             current.next=p;
             current=p;
         }
+        length++;
     }
   
     public void remove(){
@@ -100,9 +102,20 @@ public void clear() {
                     current=current.next;
                else
                     current=Head;
+                       length--;
+
     }    
   
-    
+   public boolean exists(String value) {
+    current = Head; 
+    while (current != null) { 
+        if (current.data.equals(value))  
+            return true; 
+        current = current.next; 
+    }
+    return false; 
+}
+ 
     public void display(){
         if (Head==null)
             System.out.println("empty");

@@ -11,7 +11,6 @@ package datastructurep;
 public class WordEntry {
     private String word;
     private datastructurep.LinkedList<Integer> docIds;
-
     public WordEntry(String word) {
         this.word = word;
         this.docIds = new datastructurep.LinkedList<>();
@@ -24,7 +23,10 @@ public class WordEntry {
     public datastructurep.LinkedList<Integer> getDocIds() {
         return docIds;
     }
-
+    
+    public int getWordDocCount(){
+    return docIds.length;   }
+    
     public void addID(int docId) {
         if (!existsInDocIds(docId)) {
             docIds.insert(docId);
@@ -46,7 +48,16 @@ public class WordEntry {
     
     @Override
 public String toString() {
-    return "Word: " + word + ", Doc IDs: " + docIds.retrieve();
+    String ids = ""; 
+    docIds.findFirst(); 
+    while (!docIds.last()) {
+        ids += docIds.retrieve() + " "; 
+        docIds.findNext();
+        
+    }
+    ids += docIds.retrieve();  // for last element
+    return "Word: " + word + " [" + ids + "] " + "Number of Documents: " + docIds.length;
 }
+
 
 }// end class WordEntry

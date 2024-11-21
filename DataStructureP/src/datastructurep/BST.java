@@ -76,10 +76,7 @@ public class BST<T> {
     private void preOrder(BSTNode p){
         if (p==null)
             return;
-             
-             System.out.println("keys: "+p.key);
              System.out.println(((WordEntry)p.data).toString());
-                              
              preOrder(p.left);
              preOrder(p.right);
         

@@ -20,4 +20,7 @@ public class Document {
         this.Words = Words;
     }
     
+    public int getTokenCountPerDoc () {
+    return Words.length;}
+    
 }

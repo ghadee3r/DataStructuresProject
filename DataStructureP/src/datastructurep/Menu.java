@@ -26,18 +26,43 @@ public class Menu {
 
         while (!exit) {
             System.out.println("\n===== Search Engine Menu =====");
-            System.out.println("1. Boolean Retrieval");
-            System.out.println("2. Ranked Retrieval");
-            System.out.println("3. Show Number of Indexed Documents");
-            System.out.println("4. Show Number of Indexed Tokens");
-            System.out.println("5. Exit");
+            System.out.println("1. Retrieve Term");
+            System.out.println("2. Boolean Retrieval");
+            System.out.println("3. Ranked Retrieval");
+            System.out.println("4. Show Number of Indexed Documents");
+            System.out.println("5. Show Number of Indexed Tokens");
+            System.out.println("6. Exit");
             System.out.print("Enter your choice: ");
 
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline character
 
             switch (choice) {
-                case 1: // Boolean Retrieval
+                
+                case 1: //Retrieve Term
+                    System.out.println("Enter a Term to Retrieve: ");
+                    String term = scanner.nextLine();
+                    System.out.println("Choose how to retrieve it: ");
+                    System.out.println("1. Using Index with Linked List");
+                    System.out.println("2. Using Inverted Index with Linked List");
+                    System.out.println("3. Using Inverted Index with BST");
+                    int c1 = scanner.nextInt();
+                    scanner.nextLine(); // Consume newline character
+                    switch (c1) {
+                        case 1:
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                        default:
+                            System.out.println("Invalid choice. Please try again.");                    }
+                    
+              
+                break;
+                
+                
+                case 2: // Boolean Retrieval
                 System.out.print("Enter a Boolean query: ");
                 String booleanQuery = scanner.nextLine();
                 LinkedList<Integer> booleanResults;
@@ -59,7 +84,7 @@ public class Menu {
                 break;
 
 
-                case 2: // Ranked Retrieval
+                case 3: // Ranked Retrieval
                     System.out.print("Enter a query for ranked retrieval: ");
                     String rankedQuery = scanner.nextLine();
                     ranker.RankQuery(rankedQuery);
@@ -67,19 +92,28 @@ public class Menu {
                     ranker.displayRankedDocs();
                     break;
 
-                case 3: // Indexed Documents
-                    int docCount = processor.index.getNumberOfDocuments();
-                    System.out.println("Number of indexed documents: " + docCount);
+                case 4: // Indexed Documents
+                    processor.index.displayDocs();
                     break;
 
-                case 4: // Indexed Tokens
-                    int vocabCount = processor.invertedind.getVocabularySize();
-                    int tokenCount = processor.invertedind.getTokenCount();
-                    System.out.println("Number of vocabulary terms: " + vocabCount);
-                    System.out.println("Number of tokens: " + tokenCount);
+                case 5: // Indexed Tokens
+                    System.out.println("Type L to use LinkedList or B to use BST");
+                    char c4 = scanner.next().charAt(0);
+                    scanner.nextLine(); // Consume newline character
+                    switch (c4) {
+                        case 'L':
+                            processor.invertedind.displayInvertedIndex();
+                            break;
+                        case 'B':
+                            processor.invertedindBST.displayInvertedIndex();
+                            break;  
+                        default:
+                            System.out.println("Invalid choice. Please try again.");
+                    }
+                    
                     break;
 
-                case 5: // Exit
+                case 6: // Exit
                     System.out.println("Exiting the menu. Goodbye!");
                     exit = true;
                     break;
