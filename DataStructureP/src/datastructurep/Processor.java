@@ -17,7 +17,8 @@ LinkedList <String> stopW;
 Index index;
 InvertedIndex invertedind;
 InvertedIndexBST invertedindBST;
-
+int TotalTokens=0;
+int TotalVocabulary=0;
 public Processor()
 {
     stopW = new LinkedList<>();
@@ -52,13 +53,17 @@ public void loadStopWords(String stopWordsFile) {
     public void preprocessContent(String content, LinkedList<String> WordsLL, int id) {
        
         String[] words = content.toLowerCase().split("\\s+");
-
+        TotalTokens+=words.length;
         for (int i = 0; i < words.length; i++) {
+
             String word = removePunctuation(words[i]);
+
             if (!isStopWord(word) && !word.isEmpty()) {
                 WordsLL.insert(word);
                 invertedind.addWord(id, word);
-                invertedindBST.addWord(id,word);
+                boolean check = invertedindBST.addWord(id,word);
+                if(check)
+                TotalVocabulary++;
             }
         }
         

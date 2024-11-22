@@ -19,7 +19,7 @@ public class Menu {
 
         Processor processor = new Processor();
         processor.LoadF("stop.txt", "dataset.csv"); 
-        Query queryProcessor = new Query(processor.invertedind);
+        Query queryProcessor = new Query(processor.invertedindBST);
         Rank ranker = new Rank(processor.invertedindBST, processor.index, "");
         
         boolean exit = false;
@@ -46,14 +46,18 @@ public class Menu {
                     System.out.println("1. Using Index with Linked List");
                     System.out.println("2. Using Inverted Index with Linked List");
                     System.out.println("3. Using Inverted Index with BST");
+                    System.out.print("Enter your choice: ");
                     int c1 = scanner.nextInt();
                     scanner.nextLine(); // Consume newline character
                     switch (c1) {
                         case 1:
+                            processor.index.findWordIndex(term);
                             break;
                         case 2:
+                            processor.invertedind.findWordInvertedIndex(term);
                             break;
                         case 3:
+                            processor.invertedindBST.findWordInvertedIndexBST(term);
                             break;
                         default:
                             System.out.println("Invalid choice. Please try again.");                    }
@@ -66,18 +70,8 @@ public class Menu {
                 System.out.print("Enter a Boolean query: ");
                 String booleanQuery = scanner.nextLine();
                 LinkedList<Integer> booleanResults;
-
-                // Check the type of query
-                if (booleanQuery.contains("AND") && booleanQuery.contains("OR")) {
-                    booleanResults = queryProcessor.MixedQuery(booleanQuery);
-                } else if (booleanQuery.contains("AND")) {
-                    booleanResults = queryProcessor.andQuery(booleanQuery);
-                } else if (booleanQuery.contains("OR")) {
-                    booleanResults = queryProcessor.ORQuery(booleanQuery);
-                } else {
-                    // Treat as a single-term AND query
-                    booleanResults = queryProcessor.andQuery(booleanQuery);  }
-
+                booleanResults = queryProcessor.BooleanQuery(booleanQuery);
+                
                 // Display results
                 System.out.println("Documents matching the query:");
                 processor.displayDocsByIds(booleanResults);
@@ -94,6 +88,9 @@ public class Menu {
 
                 case 4: // Indexed Documents
                     processor.index.displayDocs();
+                    System.out.println();
+                    System.out.println("Total Tokens:"+processor.TotalTokens);
+                    System.out.println("Total Vocabulary:"+processor.TotalVocabulary);
                     break;
 
                 case 5: // Indexed Tokens

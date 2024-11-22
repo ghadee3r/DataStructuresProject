@@ -10,10 +10,10 @@ package datastructurep;
  */
 
 public class InvertedIndex {
-    public datastructurep.LinkedList<WordEntry> invertedList;
+    public LinkedList<WordEntry> invertedList;
     
     public InvertedIndex() {
-    invertedList = new datastructurep.LinkedList<>();
+    invertedList = new LinkedList<>();
     }
 
     
@@ -38,7 +38,8 @@ public class InvertedIndex {
      
         
     public boolean indexWordEntry(String w) {
-        if (invertedList.isEmpty()) return false;
+        if (invertedList.isEmpty()) {
+        return false;}
         
         invertedList.findFirst();
         
@@ -54,6 +55,20 @@ public class InvertedIndex {
     
 
 
+public void findWordInvertedIndex(String word) {
+    if (invertedList.isEmpty()) {
+        System.out.println("The inverted index is empty.");
+        return;
+    }
+
+    if (indexWordEntry(word)) {
+        WordEntry entry = invertedList.retrieve(); 
+        System.out.print("Word found in Document IDs: ");
+        entry.getDocIds().display(); 
+    } else {
+        System.out.println("The word [" + word + "] was not found.");
+    }
+}
 
 
 
