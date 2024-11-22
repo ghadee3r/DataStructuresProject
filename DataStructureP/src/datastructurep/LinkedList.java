@@ -128,15 +128,6 @@ public void clear() {
         }
     }
     
-    
-    public static void main(String[] args) {
-        
-        LinkedList<String> L= new LinkedList<String>();
-        L.insert("Hello");
-        L.insert("world");
-        L.remove();
-        L.display();
-    }
 
     
 }
