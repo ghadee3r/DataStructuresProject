@@ -47,24 +47,25 @@ public void loadStopWords(String stopWordsFile) {
     }
 }
 
-    private String removePunctuation(String word) {
-        return word.replaceAll("[^a-zA-Z0-9]", "");
-    }
+
 
     public void preprocessContent(String content, LinkedList<String> WordsLL, int id) {
-        content=content.replaceAll("\'"," ");
-        content=content.replaceAll("-"," ");
+        content=content.replaceAll("[']","");
+        while(content.contains("-")){
+            if (content.charAt(content.indexOf("-")-2)==' ')
+                content=content.replaceAll("-","");
+            else content=content.replaceAll("-"," ");
+        }
+        content=content.replaceAll("[^a-zA-Z0-9]", " ").trim();
         String[] words = content.toLowerCase().split("\\s+");
         TotalTokens+=words.length;
-        for (int i = 0; i < words.length; i++) {
-            
-   
-            String word = removePunctuation(words[i]);
-            if (!isStopWord(word) && !word.isEmpty()) {
-                WordsLL.insert(word);
-                boolean check1 = invertedind.addWord(id, word);
-                boolean check2 = invertedindBST.addWord(id,word);
-                if(check1||check2)TotalVocabulary++;
+        for (String w : words) {
+ 
+            if (!isStopWord(w) ) {
+                WordsLL.insert(w);
+                boolean check1 = invertedind.addWord(id, w);
+                boolean check2 = invertedindBST.addWord(id,w);
+                if(check2)TotalVocabulary++;
 
             }
         }
