@@ -11,6 +11,7 @@ package datastructurep;
 public class WordEntry {
     private String word;
     private datastructurep.LinkedList<Integer> docIds;
+    
     public WordEntry(String word) {
         this.word = word;
         this.docIds = new datastructurep.LinkedList<>();

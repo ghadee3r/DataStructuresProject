@@ -16,9 +16,24 @@ public class Index {
     documents = new LinkedList(); 
 }
     
-    public void addDocument (Document doc ) {
-        documents.insert(doc);
-            }//end addDocument 
+  public void addDocument(Document doc) {
+    boolean exists = false;
+
+    // Iterate through the linked list using the existing methods
+    for (int i = 0; i < documents.length; i++) { // Assuming you have a size() method
+     Document currentDoc = (Document) documents.retrieve(); // Assuming you have a get(index) method
+        if (currentDoc.docuID == doc.docuID) { // Check if the ID already exists
+            exists = true;
+            break;
+        }
+    }
+
+    if (!exists) {
+        documents.insert(doc); // Use the existing insert method to add the document
+    } else {
+        System.out.println("Document with ID " + doc.docuID + " already exists and will not be added.");
+    }
+}
     
 
 
