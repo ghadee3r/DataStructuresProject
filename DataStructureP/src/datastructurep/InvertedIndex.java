@@ -20,16 +20,16 @@ public class InvertedIndex {
         
         
     // Adds a document's words to the inverted index
-    public void addWord(int ID, String WORD) {
+    public boolean addWord(int ID, String WORD) {
             if (!indexWordEntry(WORD)){
             WordEntry newWord = new WordEntry(WORD);
             newWord.getDocIds().insert(ID);
             invertedList.insert(newWord);
-            }
+            return true;}
             else {
                 WordEntry exist = invertedList.retrieve();
                     exist.addID(ID);                
-            }            
+            return false;}            
     }
     
     
