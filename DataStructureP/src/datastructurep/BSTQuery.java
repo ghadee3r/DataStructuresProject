@@ -4,6 +4,8 @@
  */
 package datastructurep;
 
+import static datastructurep.Query.ORQuery;
+import static datastructurep.Query.andQuery;
 import static datastructurep.Query.existsInResult;
 
 /**
@@ -145,4 +147,37 @@ public static LinkedList<Integer>andQuery(LinkedList<Integer>A, LinkedList<Integ
          return result;
                  
              }
+
+
+
+public static LinkedList<Integer> BooleanQuery(String Query){
+    if(!Query.contains("AND") && !Query.contains("OR"))
+        return andQuery(Query);
+    else if(Query.contains("AND") && !Query.contains("OR"))
+        return andQuery(Query);
+    else if(!Query.contains("AND") && Query.contains("OR"))
+        return ORQuery(Query);
+    else
+        return MixedQuery(Query);
+}
+
+
+public static LinkedList<Integer> MixedQuery(String Query){
+    LinkedList<Integer> A = new LinkedList<Integer>();
+    LinkedList<Integer> B = new LinkedList<Integer>();
+    
+    if(Query.length() == 0) return A;
+    
+    String ors[] = Query.split("OR");
+    
+    A = andQuery(ors[0]);
+    for(int i = 1; i < ors.length; i++) {
+        B = andQuery(ors[i]);
+        A = ORQuery(A, B);
+    }
+    
+    return A;
+}
+
+
 }

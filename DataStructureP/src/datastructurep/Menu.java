@@ -19,7 +19,7 @@ public class Menu {
 
         Processor processor = new Processor();
         processor.LoadF("stop.txt", "dataset.csv"); 
-        Query queryProcessor = new Query(processor.invertedindBST);
+        BSTQuery queryProcessor = new BSTQuery(processor.invertedindBST);
         Rank ranker = new Rank(processor.invertedindBST, processor.index, "");
         
         boolean exit = false;

@@ -11,18 +11,13 @@ package datastructurep;
 public class Query {
     
    static InvertedIndex inverted;
-   static InvertedIndexBST invertedBST;
    
    public Query (InvertedIndex inverted){
        this.inverted=inverted;
       
    }
    
-   
-   public Query (InvertedIndexBST invertedBST){
- 
-       this.invertedBST=invertedBST;
-   }
+
    
 public static LinkedList<Integer> andQuery(String Query) {
     LinkedList<Integer> A = new LinkedList<>();
